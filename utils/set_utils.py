@@ -145,7 +145,7 @@ class Model(nn.Module):
                 self.hd_dim = self.input_dim
 
         # Set classify
-        if self.method == 'LifeHD' or self.method =='BaggingLifeHD':
+        if self.method == 'LifeHD' or self.method =='BaggingLifeHD' or self.method == 'BoostingLifeHD':
             self.classify = nn.Linear(self.hd_dim, self.max_classes, bias=False)
             self.classify_sample_cnt = torch.zeros(self.max_classes).to(self.device)
             self.dist_mean = torch.zeros(self.max_classes).to(self.device)
@@ -254,7 +254,7 @@ class Model(nn.Module):
         if mask is None:
             mask = torch.ones(self.hd_dim, device=self.device).type(torch.bool)
 
-        if self.method == 'LifeHD' or self.method == 'LifeHDsemi' or self.method =="BaggingLifeHD":
+        if self.method == 'LifeHD' or self.method == 'LifeHDsemi' or self.method =="BaggingLifeHD" or self.method == 'BoostingLifeHD':
             class_hv = self.classify.weight[:self.cur_classes, mask]
         elif self.method == 'BasicHD':
             class_hv = self.classify.weight[:, mask]

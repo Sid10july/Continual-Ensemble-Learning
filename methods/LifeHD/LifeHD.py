@@ -572,7 +572,7 @@ class LifeHD():
         #                fig_name=os.path.join(self.opt.save_folder, '{}_before.png'.format(batch_idx)))
 
         old_classes = self.model.cur_classes
-        old_weights = copy.deepcopy(self.model.classify_weights[:old_classes])
+        old_weights = copy.deepcopy(self.model.classify_weights[:old_classes]).detach().clone()
         old_cnt = copy.deepcopy(self.model.classify_sample_cnt[:old_classes])
         old_dist_mean = copy.deepcopy(self.model.dist_mean[:old_classes])
         old_dist_std = copy.deepcopy(self.model.dist_std[:old_classes])
